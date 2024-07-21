@@ -208,7 +208,7 @@ const ProductInfoScreen = () => {
       >
         {addedTOCart ? (
           <View>
-            <Text>Added to Cart</Text>
+            <Text style={{color:'white',fontWeight:'600'}} >Added to Cart</Text>
           </View>
         ) : (
           <Text>Add to Cart </Text>
@@ -227,7 +227,7 @@ const ProductInfoScreen = () => {
 
         }}
       >
-        <Text>Buy Now </Text>
+        <Text style={{fontWeight:'600'}}>Buy Now </Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -240,8 +240,7 @@ const styles = StyleSheet.create({
     backgroundColor:'#ffac1c'
   },
   addedToCartButton:{
-    backgroundColor:'green'
-
+    backgroundColor:'#4ad66d'
   }
 
 });

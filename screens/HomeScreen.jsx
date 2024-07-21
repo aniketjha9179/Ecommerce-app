@@ -9,6 +9,8 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  BackHandler,
+  Alert,
 } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
@@ -19,7 +21,7 @@ import Swiperrr from "../components/Swiper";
 import axios from "axios";
 import ProductItem from "../components/ProductItem";
 import DropDownPicker from "react-native-dropdown-picker";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
 const HomeScreen = () => {
@@ -246,6 +248,38 @@ const HomeScreen = () => {
     fetchData();
   }, []);
   console.log("products,", products);
+// here is the solution for pressing back button and getting alert of exit application  
+useFocusEffect(
+  useCallback(() => {
+    const onBackPress = () => {
+      Alert.alert(
+        "Exit App",
+        "Are you sure you want to exit the app?",
+        [
+          { text: "Cancel", style: "cancel" },
+          { text: "Yes", onPress: () => BackHandler.exitApp() },
+        ],
+        { cancelable: false }
+      );
+      return true;
+    };
+
+    BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+  }, [])
+);
+
+
+  
+
+
+
+
+
+
+//drop down code
   const onGenderOpen = useCallback(() => {
     setCompanyOpen(false);
   }, []);
