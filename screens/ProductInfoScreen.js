@@ -69,7 +69,7 @@ const ProductInfoScreen = () => {
           <TextInput placeholder="Amazon.in" />
         </Pressable>
         <TouchableOpacity>
-          <Feather name="mic" size={24} color="black" />
+          <Feather name="mic" size={24} color="white" />
         </TouchableOpacity>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>

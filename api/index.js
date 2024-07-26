@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
+const bcrypt = require("bcrypt");
 
 const app = express();
 const port = 8000;
@@ -18,10 +19,13 @@ app.listen(port, () => {
 });
 
 mongoose
-  .connect("mongodb+srv://aniketjha9179:aniketjha9179@cluster0.dw7d4wx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://aniketjha9179:aniketjha9179@cluster0.dw7d4wx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    {
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -30,7 +34,7 @@ mongoose
   });
 
 const User = require("./models/User");
-const Order = require("./models/User");
+const Order = require("./models/Order");
 
 const sendVerificationEmail = async (email, verificationToken) => {
   // Create a Nodemailer transporter
@@ -72,8 +76,10 @@ app.post("/register", async (req, res) => {
       console.log("Email already registered:", email); // Debugging statement
       return res.status(400).json({ message: "Email already registered" });
     }
-
+    // adding hash password
+    // const hashedPassword = await bcrypt.hash(password, 10);
     // Create a new user
+    // const newUser = new User({ name, email, password: hashedPassword });
     const newUser = new User({ name, email, password });
 
     // Generate and store the verification token
@@ -249,18 +255,18 @@ app.get("/profile/:userId", async (req, res) => {
   }
 });
 
-app.get("/orders/:userId",async(req,res) => {
-  try{
+app.get("/orders/:userId", async (req, res) => {
+  try {
     const userId = req.params.userId;
 
-    const orders = await Order.find({user:userId}).populate("user");
+    const orders = await Order.find({ user: userId }).populate("user");
 
-    if(!orders || orders.length === 0){
-      return res.status(404).json({message:"No orders found for this user"})
+    if (!orders || orders.length === 0) {
+      return res.status(404).json({ message: "No orders found for this user" });
     }
 
     res.status(200).json({ orders });
-  } catch(error){
-    res.status(500).json({ message: "Error"});
+  } catch (error) {
+    res.status(500).json({ message: "Error" });
   }
-})
+});

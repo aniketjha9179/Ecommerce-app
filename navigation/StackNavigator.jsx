@@ -10,6 +10,12 @@ import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import ProductInfoScreen from "../screens/ProductInfoScreen";
+import AddAddressScreen from "../screens/AddAddressScreen";
+import AddressScreen from "../screens/AddressScreen";
+import CartScreen from "../screens/CartScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import ConfirmationScreeen from "../screens/ConfirmationScreeen";
+import OrderScreen from "../screens/OrderScreen";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -34,11 +40,11 @@ const StackNavigator = () => {
         />
         <Tab.Screen
           name="Profile"
-          component={HomeScreen}
+          component={ProfileScreen}
           options={{
             tabBarLabel: "Profile",
             tabBarLabelStyle: { color: "#008e97" },
-            headerShown: false,
+            // headerShown: false,
             tabBarIcon: ({ focused }) =>
               focused ? (
                 <FontAwesome5 name="user-alt" size={24} color="#008e97" />
@@ -49,7 +55,7 @@ const StackNavigator = () => {
         />
         <Tab.Screen
           name="Cart"
-          component={HomeScreen}
+          component={CartScreen}
           options={{
             tabBarLabel: "Cart",
             tabBarLabelStyle: { color: "#008e97" },
@@ -87,6 +93,26 @@ const StackNavigator = () => {
           screenOptions={{ headerShown: false }}
           component={ProductInfoScreen}
           name="Info"
+        />
+        <Stack.Screen
+          screenOptions={{ headerShown: false }}
+          component={AddAddressScreen}
+          name="Address"
+        />
+        <Stack.Screen
+          screenOptions={{ headerShown: false }}
+          component={AddressScreen}
+          name="Add"
+        />
+        <Stack.Screen
+          screenOptions={{ headerShown: false }}
+          component={ConfirmationScreeen}
+          name="Confirm"
+        />
+        <Stack.Screen
+          screenOptions={{ headerShown: false }}
+          component={OrderScreen}
+          name="Order"
         />
       </Stack.Navigator>
     </NavigationContainer>
